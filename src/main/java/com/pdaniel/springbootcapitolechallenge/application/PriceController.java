@@ -1,13 +1,11 @@
 package com.pdaniel.springbootcapitolechallenge.application;
 
-import com.pdaniel.springbootcapitolechallenge.domain.dto.PriceDTO;
+import com.pdaniel.springbootcapitolechallenge.domain.model.Price;
 import com.pdaniel.springbootcapitolechallenge.domain.service.PriceService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +16,8 @@ import static com.pdaniel.springbootcapitolechallenge.utils.ConstantsUtils.REQUE
 @RequestMapping(PATH_SEPARATOR + REQUEST_MAPPING_PRICES )
 public class PriceController {
 
+    private static final Logger log = LogManager.getLogger(PriceController.class);
+
     private final PriceService priceService;
 
     @Autowired
@@ -25,12 +25,17 @@ public class PriceController {
         this.priceService = priceService;
     }
 
-    @GetMapping
-    public PriceDTO getPrice(
-        @RequestParam("applicationDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime applicationDate,
-        @RequestParam("productId") Long productId,
-        @RequestParam("brandId") Long brandId) {
+    @GetMapping("/{productId}/{brandId}")
+    public Price getPrice(
+        @PathVariable Long productId,
+        @PathVariable Long brandId,
+        @RequestParam(name = "applicationDate", required = true) LocalDateTime applicationDate) {
+            log.info("Get Price for productID = {} brandID = {} ", productId, brandId);
 
-        return priceService.getPrice(productId, brandId, applicationDate);
+        //Devuelva como datos de salida: identificador de producto, identificador de cadena, tarifa a aplicar, fechas de aplicación y precio final a aplicar.
+        return priceService.getPrice(applicationDate,productId,brandId);
     }
+
+
+
 }

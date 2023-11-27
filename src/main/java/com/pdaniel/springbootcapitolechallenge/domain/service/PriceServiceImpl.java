@@ -1,15 +1,24 @@
 package com.pdaniel.springbootcapitolechallenge.domain.service;
 
-import com.pdaniel.springbootcapitolechallenge.domain.dto.PriceDTO;
+import com.pdaniel.springbootcapitolechallenge.domain.exceptions.DateException;
 import com.pdaniel.springbootcapitolechallenge.domain.model.Price;
 import com.pdaniel.springbootcapitolechallenge.infrastructure.repository.PriceRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Optional;
+
+import static com.pdaniel.springbootcapitolechallenge.utils.ConstantsUtils.FORMATT_INVALIDATE;
+import static java.util.Optional.ofNullable;
 
 @Service
 public class PriceServiceImpl implements PriceService {
+
+    private static final Logger log = LogManager.getLogger(PriceServiceImpl.class);
 
     private final PriceRepository priceRepository;
 
@@ -19,18 +28,16 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
-    public PriceDTO getPrice(Long productId, Long brandId, LocalDateTime applicationDate) {
-        // Implementa la lógica para obtener el precio según los parámetros utilizando el repository
-        // Retorna un PriceDTO con la información obtenida
-        // Ejemplo de lógica (deberás adaptarla según tu modelo y lógica de negocio):
-        // Price price = priceRepository.findPriceByProductIdAndBrandIdAndDates(productId, brandId, applicationDate);
-        // return mapPriceToPriceDTO(price);
-        return null;
-    }
+    public Price getPrice(LocalDateTime applicationDate, Long productId, Long brandId) {
+        log.info("Get Price for productID = {} brandID = {} ", productId, brandId);
 
-    // Método adicional para mapear la entidad Price a PriceDTO (deberás implementarlo según tu modelo)
-    private PriceDTO mapPriceToPriceDTO(Price price) {
-        // Implementa la lógica de mapeo aquí
-        return null;
+        Timestamp timeDB = Optional
+                .of(Timestamp.valueOf(applicationDate))
+                .orElseThrow(()-> new DateException(FORMATT_INVALIDATE));
+
+        return ofNullable(priceRepository
+                .findPriceByProductIdByBrandIdAndByApplicationDateBetweenStartDateAndEndDate(productId, brandId,timeDB))
+                .map(prices -> prices.get(0))
+                .orElse(null);
     }
 }

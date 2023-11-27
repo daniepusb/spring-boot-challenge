@@ -1,35 +1,24 @@
-package com.pdaniel.springbootcapitolechallenge.domain.model;
+package com.pdaniel.springbootcapitolechallenge.domain.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
-public class Prices {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class PriceDTO {
+    private Long productId;
     private Long brandId;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Integer priceList;
-    private Long productId;
     private Integer priority;
     private BigDecimal price;
     private String currency;
 
-    // Getters and setters
-
-    public Long getId() {
-        return id;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public Long getBrandId() {
@@ -62,14 +51,6 @@ public class Prices {
 
     public void setPriceList(Integer priceList) {
         this.priceList = priceList;
-    }
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
     }
 
     public Integer getPriority() {

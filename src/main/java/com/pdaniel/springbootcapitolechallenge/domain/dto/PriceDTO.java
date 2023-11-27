@@ -1,32 +1,24 @@
-package com.pdaniel.springbootcapitolechallenge.domain.model;
-
-import jakarta.persistence.*;
+package com.pdaniel.springbootcapitolechallenge.domain.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "price")
-public class Price {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long            priceId;
-    private Long            brandId;
-    private LocalDateTime   startDate;
-    private LocalDateTime   endDate;
-    private Integer         priceList;
-    private Long            productId;
-    private Integer         priority;
-    private BigDecimal      priceAmount;
-    private String          currency;
+public class PriceDTO {
+    private Long productId;
+    private Long brandId;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    private Integer priceList;
+    private Integer priority;
+    private BigDecimal price;
+    private String currency;
 
-    public Long getId() {
-        return priceId;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setId(Long priceId) {
-        this.priceId = priceId;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public Long getBrandId() {
@@ -61,14 +53,6 @@ public class Price {
         this.priceList = priceList;
     }
 
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
     public Integer getPriority() {
         return priority;
     }
@@ -78,11 +62,11 @@ public class Price {
     }
 
     public BigDecimal getPrice() {
-        return priceAmount;
+        return price;
     }
 
-    public void setPrice(BigDecimal priceAmount) {
-        this.priceAmount = priceAmount;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public String getCurrency() {

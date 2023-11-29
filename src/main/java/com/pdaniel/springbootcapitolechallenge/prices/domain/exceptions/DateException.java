@@ -1,4 +1,4 @@
-package com.pdaniel.springbootcapitolechallenge.domain.exceptions;
+package com.pdaniel.springbootcapitolechallenge.prices.domain.exceptions;
 
 public class DateException extends RuntimeException {
 

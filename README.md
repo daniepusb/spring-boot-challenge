@@ -22,6 +22,7 @@ http://localhost:8080/api/prices/35455/1?applicationDate=2023-12-01T12:00:00
 # Hexagonal Structure
 ```bash
 com
+com
 |-- pdaniel
 |   |-- springbootcapitolechallenge
 |       |-- prices
@@ -38,7 +39,11 @@ com
 |           |-- domain
 |               |-- model
 |                   |--Price.java                       (Entity Of Domain)
-|           |-- adapter
+|               |-- exceptions
+|                   |--DateException.java
+|                   |--PriceRepositoryException.java
+|                   |--InvalidDataAccessResourceUsageException.java
+|           |-- adapters
 |               |-- in.rest
 |                   |-- PriceRestController.java	(Adapter IN)
 |               |-- out.persistence

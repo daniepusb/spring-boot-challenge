@@ -22,30 +22,35 @@ http://localhost:8080/api/prices/35455/1?applicationDate=2023-12-01T12:00:00
 # Hexagonal Structure
 ```bash
 com
-com
 |-- pdaniel
 |   |-- springbootcapitolechallenge
 |       |-- prices
+|           |-- adapters
+|               |-- in.rest
+|                   |-- PriceRestController   (Adapter IN)
+|               |-- out.persistence
+|                   |-- PriceEntity
+|                   |-- PriceMapper
+|                   |-- PricePersistence      (Adapter OUT)
+|                   |-- SpringPriceRepository (Interface) 
 |           |-- application
 |               |-- ports
 |                   |-- in.
-|                       |-- PriceRestPort.java (interface)
-|                       |-- PriceRestCommand.java (constructor)
+|                       |-- LoadPriceCommand 
+|                       |-- LoadPricePort     (Interface)
 |                   |-- out
-|                       |-- DataResponsePort.java	(interface)
-|                    	|-- DataResponse.java		(constructor of response element)
+|                       |-- DataResponse
+|                    	|-- DataResponsePort  (Interface)
 |               | -- service
-|                   |--SearchPriceService.java		(implements PriceRestPort)
+|                   |--PriceService           (implements PriceRestPort)
 |           |-- domain
-|               |-- model
-|                   |--Price.java                       (Entity Of Domain)
+|               |-- dto
+|                   |--PriceDTO               (Entity Of Domain)
 |               |-- exceptions
-|                   |--DateException.java
-|                   |--PriceRepositoryException.java
-|                   |--InvalidDataAccessResourceUsageException.java
-|           |-- adapters
-|               |-- in.rest
-|                   |-- PriceRestController.java	(Adapter IN)
-|               |-- out.persistence
-|                   |-- PriceRepository.java		(Adapter OUT)
+|                   |--DateException
+|                   |--PriceRepositoryException
+|                   |--InvalidDataAccessResourceUsageException
+|               |-- utils
+|                   |--ConstantsUtils
+|                   |--LocalDateFormatter
 ```

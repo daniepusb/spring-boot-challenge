@@ -1,31 +1,24 @@
-package com.pdaniel.springbootcapitolechallenge.domain.model;
-
-import jakarta.persistence.*;
+package com.pdaniel.springbootcapitolechallenge.prices.domain.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
-@Entity
-@Table(name = "price")
-public class Price {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+public class PriceDTO {
     private Long            priceId;
     private Long            brandId;
-    private LocalDateTime   startDate;
-    private LocalDateTime   endDate;
+    private Timestamp       startDate;
+    private Timestamp       endDate;
     private Integer         priceList;
     private Long            productId;
     private Integer         priority;
     private BigDecimal      priceAmount;
     private String          currency;
 
-    public Long getId() {
+    public Long getPriceId() {
         return priceId;
     }
 
-    public void setId(Long priceId) {
+    public void setPriceId(Long priceId) {
         this.priceId = priceId;
     }
 
@@ -37,19 +30,19 @@ public class Price {
         this.brandId = brandId;
     }
 
-    public LocalDateTime getStartDate() {
+    public Timestamp getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public Timestamp getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
     }
 
@@ -77,11 +70,11 @@ public class Price {
         this.priority = priority;
     }
 
-    public BigDecimal getPrice() {
+    public BigDecimal getPriceAmount() {
         return priceAmount;
     }
 
-    public void setPrice(BigDecimal priceAmount) {
+    public void setPriceAmount(BigDecimal priceAmount) {
         this.priceAmount = priceAmount;
     }
 

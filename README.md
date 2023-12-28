@@ -1,4 +1,4 @@
-# springboot-capitole-challenge
+# springboot-challenge
 Java Springboot API challenge
 
 
